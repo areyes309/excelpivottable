@@ -1,6 +1,8 @@
 import pyodbc
 import xlsxwriter
 import pandas as pd
+
+# Connection to SQL Server and SQL Script
 conn = pyodbc.connect('Driver={SQL Server};'
                       'Server=test01;'
                       'Database=Test;'
@@ -18,6 +20,7 @@ SELECT TOP (1000) [Agent]
                               '''
                               ,conn)
 
+# Save Data pulled from SQL Server into Excel file
 df = pd.DataFrame(sql_query)
 writer = pd.ExcelWriter(r'C:\Users\Deskop\ar_urltime.xlsx', engine='xlsxwriter')
 df.to_excel(writer, sheet_name='data', startrow=1, header=False, index=False)
